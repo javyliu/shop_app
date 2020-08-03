@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/models/product.dart';
+
+import 'add_to_cart.dart';
+import 'cart_counter.dart';
+import 'color_and_size.dart';
+import 'counter_with_fav_btn.dart';
+import 'description.dart';
+import 'product_with_image.dart';
 
 class Body extends StatelessWidget {
   final Product product;
@@ -19,7 +27,11 @@ class Body extends StatelessWidget {
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(top: size.height * 0.3),
-                  height: 500,
+                  padding: EdgeInsets.only(
+                      top: size.height * 0.12,
+                      left: defaultPadding,
+                      right: defaultPadding),
+//                  height: 500,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -27,54 +39,19 @@ class Body extends StatelessWidget {
                       topRight: Radius.circular(24),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: defaultPadding),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        "Aristocratic Hand Bag",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        product.title,
-                        style: Theme.of(context).textTheme.headline4.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: defaultPadding,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          RichText(
-                            text: TextSpan(children: [
-                              TextSpan(text: "Price\n"),
-                              TextSpan(
-                                text: "\$${product.price}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4
-                                    .copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                              )
-                            ]),
-                          ),
-                          SizedBox(
-                            width: defaultPadding,
-                          ),
-                          Expanded(
-                            child: Image.asset(
-                              product.image,
-                              fit: BoxFit.contain,
-                            ),
-                          )
-                        ],
-                      )
+                      ColorAndSize(product: product),
+                      SizedBox(height: defaultPadding/2,),
+                      Description(product: product),
+                      SizedBox(height: defaultPadding/2,),
+                      CounterWithFavBtn(),
+                      SizedBox(height: defaultPadding/2,),
+                      AddToCart(product: product)
                     ],
                   ),
-                )
+                ),
+                ProductWithImage(product: product)
               ],
             ),
           )
